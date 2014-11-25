@@ -76,20 +76,20 @@ func GeneratePassword() (string, error) {
 	return generateRandom(10)
 }
 
-func CreateUser(username string, password string) (User, error) {
+func CreateUser(username string, password string) error {
 	args := []string{username}
 	err := exec.Command("adduser", args...).Start()
 	if err != nil {
-		panic(err)
+		return err
 	}
 
 	args = []string{password, "|", "passwd", username, "--stdin"}
 	err = exec.Command("echo", args...).Start()
 	if err != nil {
-		panic(err)
+		return err
 	}
 
-	return GetUser(username)
+	return nil
 }
 
 func DeleteUser(username string) {

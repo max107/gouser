@@ -12,13 +12,6 @@ func TestGenerateRandom(t *testing.T) {
 	}
 }
 
-func TestListUser(t *testing.T) {
-	_, err := ListUser()
-	if err != nil {
-		t.Error("Failed to get user list")
-	}
-}
-
 func TestHasUser(t *testing.T) {
 	user, _ := user.Current()
 	has := HasUser(user.Username)
