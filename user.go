@@ -78,17 +78,24 @@ func GeneratePassword() (string, error) {
 }
 
 func CreateUser(username string, password string) (User, error) {
-	args := []string{username, "-p", password}
-	err := exec.Command("useradd", args...).Start()
+	args := []string{username}
+	err := exec.Command("adduser", args...).Start()
 	if err != nil {
 		panic(err)
 	}
+
+	args = []string{password, "|", "passwd", username, "--stdin"}
+	err = exec.Command("echo", args...).Start()
+	if err != nil {
+		panic(err)
+	}
+
 	return GetUser(username)
 }
 
 func DeleteUser(username string) {
 	args := []string{"-f", username}
-	err := exec.Command("userdel", args...).Start()
+	err := exec.Command("deluser", args...).Start()
 	if err != nil {
 		panic(err)
 	}
