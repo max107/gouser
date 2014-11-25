@@ -13,7 +13,6 @@ import (
 
 type User struct {
 	Username string
-	Password string
 	Uid      string
 	Gid      string
 	Home     string
@@ -64,7 +63,7 @@ func parseLine(line string) (string, User, error) {
 	if len(fs) != 7 {
 		return "", User{}, errors.New("Unexpected number of fields in /etc/passwd")
 	}
-	return fs[0], User{fs[0], fs[1], fs[2], fs[3], fs[5]}, nil
+	return fs[0], User{fs[0], fs[2], fs[3], fs[5]}, nil
 }
 
 func copyBytes(x []byte) []byte {
